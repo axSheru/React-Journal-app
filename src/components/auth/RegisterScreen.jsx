@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import validator from 'validator';
 import { useForm } from '../../hooks/useForm';
 
 export const RegisterScreen = () => {
@@ -15,7 +16,21 @@ export const RegisterScreen = () => {
 
     const handleRegister = ( e ) => {
         e.preventDefault();
-        console.table([ name, email, password, password2 ]);
+        
+        if ( isFormValid ) {
+            console.log('Formulario correcto');
+        }
+    };
+
+    const isFormValid = () => {
+
+        if ( name.trim().length === 0 ) return false;
+
+        if ( ! validator.isEmail( email ) ) return false;
+
+        if ( password !== password2 || password.length < 5 ) return false;
+
+        return true;
     };
 
     return (
@@ -23,6 +38,11 @@ export const RegisterScreen = () => {
             <h3 className='auth__title'>Register</h3>
 
             <form>
+
+                <div className="auth__alert-error">
+                    Hola mundo
+                </div>
+
                 <input
                     type="text"
                     placeholder='Name'
