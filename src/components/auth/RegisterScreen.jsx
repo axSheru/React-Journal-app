@@ -34,19 +34,16 @@ export const RegisterScreen = () => {
 
         if ( name.trim().length === 0 ) {
             dispatch( setError( 'Name is required.' ) );
-            console.log(1);
             return false;
         }
 
         if ( ! validator.isEmail( email ) ) {
             dispatch( setError( 'Email not valid.' ) );
-            console.log(2);
             return false;
         }
 
         if ( password !== password2 || password.length < 5 ) {
             dispatch( setError( 'Password should be at least 6 characters and both fields should match.' ) );
-            console.log(3);
             return false;
         }
 
