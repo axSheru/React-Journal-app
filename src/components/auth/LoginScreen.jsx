@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import validator from 'validator';
 import { startGoogleLogin, startLoginEmailPassword } from '../../actions/auth';
 import { useForm } from '../../hooks/useForm';
 
@@ -9,15 +10,21 @@ export const LoginScreen = () => {
     const dispatch = useDispatch();
 
     const [ formValues, handleInputChange ] = useForm({
-        email: 'ale@test.com',
-        password: '123456'
+        email: 'alexp@test.com',
+        password: '12345678'
     });
 
     const { email, password } = formValues;
 
     const handleLogin = ( e ) => {
         e.preventDefault();
-        dispatch( startLoginEmailPassword( email, password ) );
+
+        // NOTE: Add better form error handling like in register form.
+        if ( validator.isEmail( email ) && password.trim().length > 0 ) {
+            dispatch( startLoginEmailPassword( email, password ) );
+        } else {
+            console.log( 'Faltan datos.' );
+        }
     };
 
     const handleGoogleLogin = () => {
