@@ -58,7 +58,7 @@ export const NoteScreen = () => {
                         ( note.url ) &&
                         <div className="notes__image">
                             <img
-                                src="https://i1.wp.com/www.lafosadelrancor.com/wp-content/uploads/2019/07/Sith-Trooper-El-Ascenso-de-Skywalker.jpg?fit=678%2C489&ssl=1"
+                                src={ note.url }
                                 alt="imagen"
                             />
                         </div>
