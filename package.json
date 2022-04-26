@@ -52,6 +52,7 @@
     "enzyme-to-json": "^3.6.2",
     "jest": "^27.5.1",
     "jest-watch-typeahead": "^0.6.5",
+    "redux-mock-store": "^1.5.4",
     "setimmediate": "^1.0.5"
   }
 }
