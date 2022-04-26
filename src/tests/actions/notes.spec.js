@@ -3,7 +3,7 @@
  */
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { startLoadingNotes, startNewNote } from '../../actions/notes';
+import { startLoadingNotes, startNewNote, startSaveNote } from '../../actions/notes';
 import { db } from '../../firebase/firebase-config';
 import { types } from '../../types/types';
  
@@ -74,6 +74,33 @@ describe('Pruebas en notes-actions.', () => {
         };
 
         expect( actions[0].payload[0] ).toMatchObject( expected );
+
+    });
+
+    test('Debe de actualizar la nota - startSaveNote.', async () => {
+
+        const note = {
+            id: '3bKtFOf0J9GGLihTehiy',
+            title: 'título',
+            body: 'body'
+        };
+
+        await store.dispatch( startSaveNote( note ) );
+
+        const actions = store.getActions();
+
+        expect( actions[0] ).toEqual({
+            type: types.notesUpdated,
+            payload: {
+                id: '3bKtFOf0J9GGLihTehiy',
+                note: note
+            }
+        });
+
+        const docRef = await db.doc( `TESTING/journal/notes/${ note.id }` ).get();
+
+        expect( docRef.data().title ).toBe( note.title );
+        expect( docRef.data().body ).toBe( note.body );
 
     });
 
