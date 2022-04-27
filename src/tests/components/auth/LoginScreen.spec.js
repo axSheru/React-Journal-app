@@ -5,6 +5,11 @@ import { mount } from "enzyme";
 import { Provider } from "react-redux";
 import { LoginScreen } from "../../../components/auth/LoginScreen";
 import { MemoryRouter } from 'react-router-dom';
+import { startGoogleLogin } from '../../../actions/auth';
+
+jest.mock('../../../actions/auth', () => ({
+    startGoogleLogin: jest.fn()
+}));
 
 describe('Pruebas en LoginScreen component.', () => {
 
@@ -20,6 +25,8 @@ describe('Pruebas en LoginScreen component.', () => {
 
     let store = mockStore( initState );
 
+    store.dispatch = jest.fn();
+
     const wrapper = mount(
         <Provider store={ store }>
             <MemoryRouter>
@@ -30,11 +37,20 @@ describe('Pruebas en LoginScreen component.', () => {
 
     beforeEach( () => {
         store = mockStore( initState );
+        jest.clearAllMocks();
     });
 
     test('Debe de hacer match con el snapshot.', () => {
 
         expect( wrapper ).toMatchSnapshot();
+
+    });
+
+    test('Debe de disparar la acción startGoogleLogin.', () => {
+
+        wrapper.find( '.google-btn' ).prop( 'onClick' )();
+
+        expect( startGoogleLogin ).toHaveBeenCalled();
 
     });
 
