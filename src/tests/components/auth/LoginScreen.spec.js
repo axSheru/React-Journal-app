@@ -5,10 +5,11 @@ import { mount } from "enzyme";
 import { Provider } from "react-redux";
 import { LoginScreen } from "../../../components/auth/LoginScreen";
 import { MemoryRouter } from 'react-router-dom';
-import { startGoogleLogin } from '../../../actions/auth';
+import { startGoogleLogin, startLoginEmailPassword } from '../../../actions/auth';
 
 jest.mock('../../../actions/auth', () => ({
-    startGoogleLogin: jest.fn()
+    startGoogleLogin: jest.fn(),
+    startLoginEmailPassword: jest.fn()
 }));
 
 describe('Pruebas en LoginScreen component.', () => {
@@ -51,6 +52,16 @@ describe('Pruebas en LoginScreen component.', () => {
         wrapper.find( '.google-btn' ).prop( 'onClick' )();
 
         expect( startGoogleLogin ).toHaveBeenCalled();
+
+    });
+
+    test('Debe de disparar la acción startLoginEmailPassword con los valores por defecto.', () => {
+
+        wrapper.find( 'form' ).prop( 'onSubmit' )({
+            preventDefault(){}
+        });
+
+        expect( startLoginEmailPassword ).toHaveBeenCalledWith( 'alexp@test.com', '12345678' );
 
     });
 
