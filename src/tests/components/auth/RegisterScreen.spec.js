@@ -36,7 +36,7 @@ describe('Pruebas en el componente RegisterScreen.', () => {
 
     });
 
-    /* test(Debe de ejecutarse la acción setError.', () => {
+    /* test('Debe de ejecutarse la acción setError.', () => {
 
         const emailField = wrapper.find( 'input[name="email"]' );
         
