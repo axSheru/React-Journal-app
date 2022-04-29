@@ -3,14 +3,16 @@ import { mount } from "enzyme";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { Sidebar } from "../../../components/journal/Sidebar";
+import { startLogout } from '../../../actions/auth';
+import { startNewNote } from '../../../actions/notes';
 
-jest.mock( '../../../actions/auth', ()  =>{
+jest.mock( '../../../actions/auth', ()  => ({
     startLogout: jest.fn()
-});
+}));
 
-jest.mock( '../../../actions/notes', ()  =>{
+jest.mock( '../../../actions/notes', ()  => ({
     startNewNote: jest.fn()
-});
+}));
 
 describe('Pruebas en el componente <Sidebar />.', () => {
 
@@ -43,7 +45,7 @@ describe('Pruebas en el componente <Sidebar />.', () => {
 
     });
 
-    /* test('Debe de disparar la acción startLogout.', () => {
+    test('Debe de disparar la acción startLogout.', () => {
 
         wrapper.find( 'button' ).prop( 'onClick' )();
 
@@ -57,6 +59,6 @@ describe('Pruebas en el componente <Sidebar />.', () => {
 
         expect( startNewNote ).toHaveBeenCalled();
 
-    }); */
+    });
 
 });
